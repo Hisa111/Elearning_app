@@ -19,8 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->integer('admin_id');
-            $table->string('image');
+            $table->integer('admin_id')->default('1');
+            $table->string('image')->default('https://www.seekpng.com/png/full/46-462959_unknown-person-icon-png-download-single-people-logo.png" alt="user-image');
             $table->rememberToken();
             $table->timestamps();
         });
