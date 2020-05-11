@@ -20,7 +20,11 @@ Auth::routes();
 Route::get('/dashboard', 'HomeController@dash')->name('dashboard');
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/profile', 'HomeController@profile')->name('layouts.profile');
 
-Route::get('/admin/categories', 'AdminController@categories')->name('admin.categories');
+Route::get('/admin/categories/make', 'AdminController@makecategories')->name('admin.makecategories');
+Route::get('/admin/categories', "AdminController@categories")->name('admin.categories');
+Route::get('/admin/answers/make', 'AdminController@makeanswers')->name('admin.makeanswers');
 
-Route::get('/admin/answers', 'AdminController@answers')->name('admin.answers');
+Route::get('/lesson/categories', 'HomeController@categories')->name('lesson.categories');
+Route::get('/lesson/answers', 'HomeController@answers')->name('lesson.answers');

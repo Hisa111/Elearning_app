@@ -29,4 +29,16 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
+    public function categories()
+    {
+        return view('lesson.categories');
+    }
+    public function profile()
+    {
+        return view('layouts.profile');
+    }
+    public function answers()
+    {
+        return view('lesson.answers');
+    }
 }
