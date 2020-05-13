@@ -41,11 +41,8 @@ class HomeController extends Controller
     {
         return view('lesson.answers');
     }
-<<<<<<< Updated upstream
-=======
     public function result()
     {
         return view('lesson.result');
     }
->>>>>>> Stashed changes
 }
