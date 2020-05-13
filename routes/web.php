@@ -26,3 +26,4 @@ Route::get('/admin/answers/make', 'AdminController@makeanswers')->name('admin.ma
 
 Route::get('/lesson/categories', 'HomeController@categories')->name('lesson.categories');
 Route::get('/lesson/answers', 'HomeController@answers')->name('lesson.answers');
+Route::get('/lesson/result', "HomeController@result")->name('lesson.result');

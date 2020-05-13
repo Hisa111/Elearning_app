@@ -41,4 +41,8 @@ class HomeController extends Controller
     {
         return view('lesson.answers');
     }
+    public function result()
+    {
+        return view('lesson.result');
+    }
 }
