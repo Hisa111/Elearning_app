@@ -20,23 +20,6 @@
               </div>
         </div>
         <div class="col-md-8">
-<<<<<<< Updated upstream
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">what user learned or activities conditional branch</h3>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">something</li>
-                        <li class="list-group-item">anything</li>
-                        <li class="list-group-item">nothng</li>
-                        <li class="list-group-item">something</li>
-                        <li class="list-group-item">anything</li>
-                        <li class="list-group-item">nothng</li>
-                      </ul>
-                </div>
-              </div>
-=======
           <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -83,7 +66,6 @@
                 </div>
             </div>
         </div>
->>>>>>> Stashed changes
         </div>
     </div>
 </div>
