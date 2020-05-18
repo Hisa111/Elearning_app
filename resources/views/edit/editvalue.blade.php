@@ -3,22 +3,33 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <form action="{{route('admin.editpostquestions',['id'=>$question->id, 'sec'=>$choice->question_id, 'num'=>$limit])}}" method="POST">
+      <form action="{{route('admin.editpostquestions',['id'=>$question->id, 'num'=>$limit])}}" method="POST">
         @method('PATCH')
         @csrf
         <div class="row">
           <div class="form-group col-md-5">
             <label for="word">Word</label>
-            <input type="text" class="form-control" name="word" placeholder="{{$question->question_text}}">
+            <input type="text" class="form-control" name="word" value="{{$question->question_text}}">
           </div>
           <div class="col-md-5">
             <label for="choices">Choice</label>
 
-            @for($y = 1; $y <= $limit; $y++)
+            {{-- @for($y = 1; $y <= $limit; $y++)
             <div class="form-group">
-              <input type="text" class="form-control" name="{{$y}}" placeholder="{{$question->choices()->where('id', '<=', $y)->choice_text}}">
+              <input type="text" class="form-control" name="choice{{$y}}_text" value="{{$choice->get($y)->choice_text}}">
+              <input type="hidden" name="choice{{$y}}_id" value="{{ $choice->get()id }}">
             </div>
-            @endfor
+            @php
+                $y += 1;
+            @endphp
+            @endfor --}}
+
+            @foreach ($question->choices as $y => $choice)
+            <div class="form-group">
+              <input type="text" class="form-control" name="choice{{$y+1}}_text" value="{{$choice->choice_text}}">
+              <input type="hidden" name="choice{{$y+1}}_id" value="{{ $choice->id }}">
+            </div>
+            @endforeach
 
           </div>
           <div class="col-md-2">

@@ -8,12 +8,12 @@ class Question extends Model
 {
     public function categories()
     {
-        $this->belongsTo('App\Category');
+        return $this->belongsTo('App\Category');
     }
 
     public function choices()
     {
-        $this->hasMany('App\Choice', 'choice_id');
+        return $this->hasMany('App\Choice');
     }
     protected $fillable = [
         'question_text', 'category_id',

@@ -8,13 +8,13 @@ class Choice extends Model
 {
     public function questions()
     {
-        $this->belonsToMany('App\Question', 'question_id');
+       return  $this->belonsToMany('App\Question');
     }
     public function answers()
     {
-        $this->hasMany('App\Answer');
+        return $this->hasMany('App\Answer');
     }
     protected $fillable = [
-        'choice_id', 'question_id', 'is_correct',
+        'choice_id', 'question_id', 'is_correct', 'choice_text'
     ];
 }

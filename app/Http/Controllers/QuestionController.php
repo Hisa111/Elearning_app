@@ -29,24 +29,41 @@ class QuestionController extends Controller
         
     }
 
-    public function edit(Request $request, $id, $sec, $num)
+    public function editpost(Request $request, $id, $num)
     {
-        $question = Question::where('id',  $$sec);  
-        $question->question_text = $request->word;
-        $question->save();
+        $question = Question::find($id);
+        $question->update([
+            'question_text' => $request->word
+        ]);
 
-        for($x = 1; $x <= $num; $x++ ) {
-            $choice = Choice::where('question_id ', $sec)->where('id', '<=', $x);
-            $choice->choice_text = $request->$x;
-            if($request->answer == $x) {
-                $choice->is_correct = 2 ;
-            }else{
-                $choice->is_correct = 1;
-            }
-            $choice->save();
+        for ($i=1; $i <= $num ; $i++) { 
+            $choice = Choice::find($request["choice$i" . "_id"]);
+
+            $choice->update([
+                'choice_text' => $request["choice$i" . "_text"],
+                'is_correct' => $request->answer == $i ? 2 : 1
+            ]);
         }
+        // $question = Question::find($id);  
+        // $question->question_text = $request->word;
+        // $question->save();
 
-        return redirect()->route('admin.valuelist', ['id'=>$id]);
+        // for($x = 1; $x <= $num; $x++ ) {
+        //     $x -= 1;
+        //     $choice = Choice::where('question_id ', $id)->get();
+        //     dd($choice);
+        //     $choice->choice_text = $request->$x;
+        //     $x += 1;
+
+        //     if($request->answer == $x) {
+        //         $choice->is_correct = 2 ;
+        //     }else{
+        //         $choice->is_correct = 1;
+        //     }
+        //     $choice->save();
+        // }
+
+        return redirect()->route('admin.valuelist', ['id'=>$question->category_id]);
         
     }
     public function delete($id, $sec)

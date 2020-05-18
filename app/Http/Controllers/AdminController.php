@@ -49,7 +49,8 @@ class AdminController extends Controller
     {
         $limit = 4; //Change the choice number
         $category=Category::find($id);
-        $question=Question::where('category_id', $id);
-        return view('admin.makevalue', compact('category', 'question', 'limit'));
+        $question=Question::find($sec);
+        $choice=Choice::where('question_id', $sec)->get();
+        return view('edit.editvalue', compact('category', 'question', 'limit', 'choice'));
     }
 }

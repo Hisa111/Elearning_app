@@ -31,7 +31,7 @@ Route::get('/admin/categories/{id}/value/list', 'AdminController@valuelist')->na
 Route::get('/admin/categories/{id}/value/make', 'AdminController@makevalue')->name('admin.makevalue');
 Route::post('/admin/categories/{id}/{num}/value/post', 'QuestionController@post')->name('admin.postquestions');
 Route::get('/admin/categories/{id}/{sec}/{num}/value/edit', 'AdminController@editvalue')->name('edit.editvalue');
-Route::patch('/admin/categories/{id}/{sec}/{num}/value/edit/post', 'QuestionController@editpost')->name('admin.editpostquestions');
+Route::patch('/admin/categories/{id}/{num}/value/edit/post', 'QuestionController@editpost')->name('admin.editpostquestions');
 Route::delete('/admin/categories/{id}/{sec}/value/delete', 'QuestionController@delete')->name('admin.deletevalue');
 //answer
 Route::post('/admin/answers/post', 'AnswerController@post')->name('admin.postanswers');
