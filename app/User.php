@@ -8,6 +8,25 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function admin()
+    {
+        return $this->belongsToMany('App\User', 'id', 'admin_id');
+    }
+
+    public function is_admin()
+    {
+        if ($this->admin() == 2){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function answers()
+    {
+        return $this->hasMany('App\Answer');
+    }
+    
     use Notifiable;
 
     /**

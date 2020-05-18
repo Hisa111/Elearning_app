@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,22 +26,27 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
     public function dash()
     {
         return view('dashboard');
     }
+
     public function categories()
     {
         return view('lesson.categories');
     }
+
     public function profile()
     {
         return view('layouts.profile');
     }
+
     public function answers()
     {
         return view('lesson.answers');
     }
+
     public function result()
     {
         return view('lesson.result');
