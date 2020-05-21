@@ -18,7 +18,7 @@ class CreateChoicesTable extends Migration
             $table->string('choice_text');
             $table->unsignedInteger('question_id');
             $table->foreign('question_id')->references('id')->on('questions')->onDelete('cascade');
-            $table->string('is_correct');
+            $table->string('is_correct')->default('1');
             $table->timestamps();
         });
     }

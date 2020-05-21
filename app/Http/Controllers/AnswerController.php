@@ -10,9 +10,4 @@ class AnswerController extends Controller
     {
         
     }
-
-    public function edit()
-    {
-
-    }
 }
