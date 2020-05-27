@@ -8,8 +8,14 @@ class Category extends Model
 {
     public function questions()
     {
-        $this->hasMany('App\Question');
+        return $this->hasMany('App\Question');
     }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+    }
+    
     protected $fillable = [
         'title', 'description',
     ];
