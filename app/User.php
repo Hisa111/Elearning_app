@@ -10,7 +10,26 @@ class User extends Authenticatable
 {
     public function admin()
     {
-        return $this->belongsToMany('App\User', 'id', 'admin_id');
+        return $this->belongsToMany('App\User','users', 'id', 'admin_id');
+    }
+
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+
+    }
+    public function answers()
+    {
+        return $this->hasMany('App\Answer');
+    }
+
+    public function have_answer($id)
+    {
+        if($this->answers()->where('choice_id', $id)->count() >= 1){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function is_admin()
@@ -20,11 +39,6 @@ class User extends Authenticatable
         } else {
             return false;
         }
-    }
-
-    public function answers()
-    {
-        return $this->hasMany('App\Answer');
     }
     
     use Notifiable;

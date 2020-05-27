@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Category;
+use App\Question;
+use App\Lesson;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -34,7 +37,8 @@ class HomeController extends Controller
 
     public function categories()
     {
-        return view('lesson.categories');
+        $categories = Category::all();
+        return view('lesson.categories', compact('categories'));
     }
 
     public function profile()
@@ -42,13 +46,30 @@ class HomeController extends Controller
         return view('layouts.profile');
     }
 
-    public function answers()
+    public function answers($id, Request $request)
     {
-        return view('lesson.answers');
+        $lesson = Lesson::find($id);
+        $questions = $lesson->category->questions()->paginate(1);
+        $answers = $request->session()->get('answers');
+        // dd($answers);
+
+        // $limit = 4;
+        // $question = Question::find($id);
+        return view('lesson.answers', compact('questions','lesson'));
+        
     }
 
-    public function result()
+    public function result($id)
     {
-        return view('lesson.result');
+        $lesson = Lesson::find($id);
+        $answers = Answer::where('lesson_id', $id)->get();
+        $correct_answers = 0;
+
+        foreach ($answers as $answer){
+            if($answer->choice->is_correct == 2){
+                $correct_answers += 1;
+            }
+        }
+        return view('lesson.result', compact('lesson', 'answers', 'correct_answers'));
     }
 }

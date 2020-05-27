@@ -38,5 +38,10 @@ Route::post('/admin/answers/post', 'AnswerController@post')->name('admin.postans
 Route::patch('/admin/answers/edit/post', 'AnswerController@editpost');
 //non admin
 Route::get('/lesson/categories', 'HomeController@categories')->name('lesson.categories');
-Route::get('/lesson/answers', 'HomeController@answers')->name('lesson.answers');
-Route::get('/lesson/result', "HomeController@result")->name('lesson.result');
+Route::get('/lesson/{id}/answers', 'HomeController@answers')->name('lesson.answers');
+Route::post('/lesson/{id}/answers/{choice_id}/post', 'AnswerController@post')->name('lesson.answerpost');
+Route::patch('/lesson/answers/delete', 'AnswerController@delete')->name('lesson.answerdelete');
+
+Route::get('/lesson/{id}/result', "HomeController@result")->name('lesson.result');
+
+Route::post('/lesson/{id}/create', 'LessonController@createLesson')->name('lesson.store');
