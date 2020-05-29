@@ -6,6 +6,9 @@ use App\Answer;
 use App\Category;
 use App\Question;
 use App\Lesson;
+use App\User;
+use App\Friend;
+use App\Activity;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,11 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $activities =Activity::all();
+        return view('home', compact('activities'));
     }
 
     public function dash()
     {
+        
         return view('dashboard');
     }
 
@@ -41,9 +46,32 @@ class HomeController extends Controller
         return view('lesson.categories', compact('categories'));
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return view('layouts.profile');
+        $activities =Activity::all();
+        $user = User::find($id);
+        return view('layouts.profile', compact('user','activities'));
+    }
+
+    public function list($id, $type)
+    {   
+        $users = User::all();
+        if($type = 1)
+        {
+            $friend = Friend::where('followed_id', $id)->get();
+            return view('layouts.list', compact('friend', 'users', 'id', 'type'));
+            
+        } elseif($type = 2) {
+
+            $friend = Friend::where('follower_id', $id)->get();
+            return view('layouts.list', compact('friend', 'users', 'id', 'type'));
+
+        } elseif($type = 3) {
+            
+            $friend = $users->id;
+            return view('layouts.list', compact('friend', 'users', 'id', 'type'));
+
+        }
     }
 
     public function answers($id, Request $request)

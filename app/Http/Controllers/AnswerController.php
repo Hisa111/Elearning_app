@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Answer;
+use App\Lesson;
+use App\Activity;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -21,20 +23,51 @@ class AnswerController extends Controller
 
         //if complete AddSettionFunction I'll replace code below to another place.
         //and add submit button
-        if ($request->next_page != "") {
-            return redirect($request->next_page);
-        } else { //If it is last page
-            foreach ($answers as $answer) {
-                $answer->save();
-            }
 
-            $request->session()->forget('answers');
-            return redirect()->route('lesson.result', ['id' => $id,]);
-        }
+        // if ($request->next_page != "") {
+        //     return redirect($request->next_page);
+        // } else { //If it is last page
+        //     foreach ($answers as $answer) {
+        //         $answer->save();
+        //     }
+
+        //     $request->session()->forget('answers');
+        //     return redirect()->route('lesson.result', ['id' => $id,]);
+        // }
     }
-    public function submit()
+    
+    public function submit(Request $request, $id)
     {
-        //
+        //insert data into database
+        $answers = $request->session()->get('answers');
+        foreach($answers as $answer)
+        {
+            $answer->save();
+        }
+        $request->session()->forget('answers');
+
+        //re-write lesson complete
+        $lesson = Lesson::find($id);
+        $answers = Answer::where('lesson_id', $id)->get();
+        $correct_answers = 0;
+
+        foreach ($answers as $answer){
+            if($answer->choice->is_correct == 2){
+                $correct_answers += 1;
+            }
+        }
+        if($correct_answers/$lesson->category->questions->count() < 0.7)
+        {
+            $lesson->completed = 2;
+            $lesson->save();
+            //create activity row
+            Activity::create([
+                'user_id' =>auth()->user()->id,
+                'lesson_id' =>$id
+            ]);
+        }
+        
+        return redirect()->route('lesson.result', ['id' => $id,]);
     }
 
     public function delete(Request $request)

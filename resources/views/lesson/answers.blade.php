@@ -66,6 +66,10 @@
                             {{$questions->links()}}
                         </div>
                     </div>
+                    <form action="{{route('lesson.answersubmit', ['id' =>$lesson->id])}}" method="POST">
+                        @csrf
+                        <button class="btn btn-primary" type='submit'>Submit</button>
+                    </form>
                 </div>
                 
             </div>
