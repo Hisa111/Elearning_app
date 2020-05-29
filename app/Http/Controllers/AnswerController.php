@@ -66,10 +66,9 @@ class AnswerController extends Controller
             $lesson->completed = 2;
             $lesson->save();
             //create activity row
-            Activity::create([
-                'user_id' =>auth()->user()->id,
-                'lesson_id' =>$id
-            ]);
+            $activity = new Activity;
+            $activity->user_id = auth()->user()->id;
+            $activity->lesson_id = $id;
         }
         
         return redirect()->route('lesson.result', ['id' => $id,]);
