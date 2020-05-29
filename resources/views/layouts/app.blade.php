@@ -36,11 +36,12 @@
                         <li class="nav-item">
                             <a href="{{route('lesson.categories')}}" class="nav-link">Lessons</a>
                         </li>
+                        
+                        @guest
+                        @else
                         <li class="nav-item">
                             <a href="{{route('layouts.list',['id' => auth()->user()->id, 'type' => 3])}}" class="nav-link">Members</a>
                         </li>
-                        @guest
-                        @else
                         @if(auth()->user()->admin_check() == true)
                             <li class="nav-item dropdown" >
                                 <a href="#" style="color:red;" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
