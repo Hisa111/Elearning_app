@@ -14,7 +14,7 @@ class Activity extends Model
     {
         return $this->belongsTo('App\Lesson');
     }
-    protected $hidden = [
+    protected $fillable = [
         'lesson_id', 'user_id',
     ];
 

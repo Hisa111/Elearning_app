@@ -30,7 +30,7 @@ class LessonController extends Controller
             
             $ans = new Answer();
             $ans->user_id = auth()->user()->id;
-            $ans->choice_id = '';
+            $ans->choice_id = 0;
             $ans->lesson_id = $lesson->id;
 
             // We add the new answer object to the array

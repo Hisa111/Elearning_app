@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Lesson;
 use App\Activity;
+use App\Choice;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -15,8 +16,10 @@ class AnswerController extends Controller
         // Get answers array from session, it will be empty for first page
         $answers = $request->session()->get('answers');
 
+        $choice = Choice::find($choice_id);
+
         // We create an answer object, not yet saved in database.
-        $answers[$request->page_num]->choice_id = $choice_id;
+        $answers[$request->page_num]->choice_id = $choice->id;
 
         // We update the array in the session
         $request->session()->put('answers', $answers);
@@ -34,12 +37,14 @@ class AnswerController extends Controller
         //     $request->session()->forget('answers');
         //     return redirect()->route('lesson.result', ['id' => $id,]);
         // }
+        return redirect()->back();
     }
     
     public function submit(Request $request, $id)
     {
         //insert data into database
         $answers = $request->session()->get('answers');
+
         foreach($answers as $answer)
         {
             $answer->save();
@@ -73,7 +78,7 @@ class AnswerController extends Controller
     public function delete(Request $request)
     {
         $answers=$request->session()->get('answers');
-        $answers[$request->page_num]->choice_id = '';
+        $answers[$request->page_num]->choice_id = 0;
         $request->session()->put('answers', $answers);
 
         return redirect()->back();
