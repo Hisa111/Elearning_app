@@ -34,7 +34,7 @@
                                             <form action="{{route('layouts.unfollow', ['id' => $user->id])}}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary">Unfollow</button>
+                                                <button type="submit" class="btn btn-danger">Unfollow</button>
                                             </form>
                                             @else
                                             <form action="{{route('layouts.follow', ['id' => $user->id])}}" method="POST">
@@ -49,32 +49,31 @@
                             @endif
                         @endforeach
                     @else
-                        @foreach($users->find($friend) as $user)
-                            @if(auth()->user()->id != $user->id)
-                            <div class="card p-0">
-                                <div class="card-body p-0">
-                                    <div class="row">
-                                        <img class="col-md-2 card-img" src="https://media.istockphoto.com/vectors/user-vector-icon-vector-id955397756?k=6&m=955397756&s=612x612&w=0&h=xYXhu8pmqqnk32v9TQYSjKX2pFMht-zebnpl4d0KxrY=" alt="">
-                                        <a class="col-md-7 card-title my-auto" href="{{route('layouts.profile',['id'=> $user->id])}}"><h4 class="">{{$user->name}}</h4></a>
-                                        
-                                        <div class="col-md-2 text-right my-auto">
-                                            @if(auth()->user()->is_following($user->id) == true)
-                                            <form action="{{route('layouts.unfollow', ['id' => $user->id])}}" method="POST">
-                                                @method('DELETE')
+                        @foreach($friends as $user)
+                        <div class="card p-0">
+                            <div class="card-body p-0">
+                                <div class="row">
+                                    <img class="col-md-2 card-img" src="https://media.istockphoto.com/vectors/user-vector-icon-vector-id955397756?k=6&m=955397756&s=612x612&w=0&h=xYXhu8pmqqnk32v9TQYSjKX2pFMht-zebnpl4d0KxrY=" alt="">
+
+                                    <a class="col-md-7 card-title my-auto" href="{{route('layouts.profile',['id'=> $user->id])}}"><h4>{{$users->where('id',$user->id)->first()->name}}</h4></a>
+                                    
+                                    <div class="col-md-2 text-right my-auto">
+                                        @if(auth()->user()->is_following($user->id) == true)
+                                        <form action="{{route('layouts.unfollow', ['id' => $user->id])}}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger">Unfollow</button>
+                                        </form>
+                                        @else
+                                            <form action="{{route('layouts.follow', ['id' => $user->id])}}" method="POST">
                                                 @csrf
-                                                <button type="submit" class="btn btn-primary">Unfollow</button>
+                                                <button type="submit"  class="btn btn-primary">Follow</button>
                                             </form>
-                                            @else
-                                                <form action="{{route('layouts.follow', ['id' => $user->id])}}" method="POST">
-                                                    @csrf
-                                                    <button type="submit"  class="btn btn-primary">Follow</button>
-                                                </form>
-                                            @endif
-                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
-                            @endif
+                        </div>
                         @endforeach
                     @endif
                 

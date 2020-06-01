@@ -20,15 +20,18 @@
                 </div>
               </div>
         </div>
+        @php
+            $type = 1;
+        @endphp
         <div class="col-md-8">
           <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        {{--need change-display button--}}
-                        <h5 class="card-title">Activity</h5>
+                        @if($type % 2 == 1)
+                        <h5 class="card-title d-inline">Activity</h5>
+                        <a href="{{route('home')}}" class="btn btn-primary d-inline text-right">My Activity</a>
                         <hr class="my-4">
-                        {{--@foreach ($members as $member)--}}
                         @foreach($activities as $activity)
                             @if(auth()->user()->is_following($activity->user_id) == true)
                                 <div class="card">
@@ -54,6 +57,32 @@
                                 </div>
                             @endif
                         @endforeach
+                    @elseif($type % 2 == 0)
+                        <h5 class="card-title d-inline">Activity</h5>
+                        <a href="{{route('home')}}" class="btn btn-primary d-inline text-right">My Activity</a>
+                        <hr class="my-4">
+                        @foreach($activities->where('user_id', auth()->user()->id) as $activity)
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class=" align-self-center">
+                                            <div class="row flex-column ">
+                                                <div class="">
+                                                    <p class="card-text">You
+                                                        passed
+                                                        <a href="">{{$activity->lesson->category->title}}</a>
+                                                    </p>
+                                                </div>
+                                                <div class="">
+                                                    <p class="text-secondary">{{$activity->created_at}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
                     </div>
                 </div>
             </div>

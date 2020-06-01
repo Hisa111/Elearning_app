@@ -67,13 +67,13 @@
                     </table>
                     <div class="col-md-12 text-right">
                         @if($correct_answers/$lesson->category->questions->count() < 0.7)
-                        <form class="" method="POST" action="{{route('lesson.store', ['id' => $lesson->category_id])}}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Re-Test</button>
-                            <a class="btn btn-success" href="{{route('lesson.categories')}}">Choose Next</a>
-                        <a class="btn btn-primary" href="{{route('home')}}">Back Home</a>
-                        </form>
+                            <form class="" method="POST" action="{{route('lesson.store', ['id' => $lesson->category_id])}}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Re-Test</button>
+                            </form>
                         @endif
+                        <a class="btn btn-success" href="{{route('lesson.categories')}}">Choose Next</a>
+                        <a class="btn btn-primary" href="{{route('home')}}">Back Home</a>
                         
                     </div>
                 </div>
