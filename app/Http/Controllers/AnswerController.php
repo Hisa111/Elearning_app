@@ -61,14 +61,15 @@ class AnswerController extends Controller
                 $correct_answers += 1;
             }
         }
-        if($correct_answers/$lesson->category->questions->count() < 0.7)
+        if($correct_answers/$lesson->category->questions->count() >= 0.7)
         {
             $lesson->completed = 2;
             $lesson->save();
             //create activity row
-            $activity = new Activity;
-            $activity->user_id = auth()->user()->id;
-            $activity->lesson_id = $id;
+            Activity::create([
+                'user_id' => auth()->user()->id,
+                'lesson_id' => $id
+            ]);
         }
         
         return redirect()->route('lesson.result', ['id' => $id,]);

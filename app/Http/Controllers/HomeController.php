@@ -56,20 +56,18 @@ class HomeController extends Controller
     public function list($id, $type)
     {   
         $users = User::all();
-        if($type == 1)
+        if($type == 1)//followwer
         {
             $friend = Friend::where('followed_id', $id)->get();
             return view('layouts.list', compact('friend', 'users', 'id', 'type'));
             
-        } elseif($type == 2) {
+        } elseif($type == 2) {//following
 
             $friend = Friend::where('follower_id', $id)->get();
             return view('layouts.list', compact('friend', 'users', 'id', 'type'));
 
         } elseif($type == 3) {
-            
-            $friend = $users->id;
-            return view('layouts.list', compact('friend', 'users', 'id', 'type'));
+            return view('layouts.list', compact('users', 'id', 'type'));
 
         }
     }

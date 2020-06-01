@@ -10,7 +10,7 @@ class Friend extends Model
     {
         return $this->belongsTo('App\User');
     }
-    protected $hidden = [
+    protected $fillable = [
         'followed_id', 'follower_id',
     ];
 }

@@ -29,11 +29,11 @@
                     <div class="row">
                         
                         <div class="col-md-6">
-                            <a href="{{route('layouts.list', ['id' => $user->id, 'type' => 1])}}">{{$user->following()->count()}}</a>
+                            <a href="{{route('layouts.list', ['id' => $user->id, 'type' => 2])}}">{{$user->following()->count()}}</a>
                             <p >following</p>
                         </div>
                         <div class="col-md-6">
-                            <a href="{{route('layouts.list', ['id' => $user->id, 'type'=> 2])}}">{{$user->followed()->count()}}</a>
+                            <a href="{{route('layouts.list', ['id' => $user->id, 'type'=> 1])}}">{{$user->followed()->count()}}</a>
                             <p>followers</p>
                         </div>
                     </div>
@@ -52,9 +52,8 @@
                             {{--need change-display button--}}
                             <h5 class="card-title">Activity</h5>
                             <hr class="my-4">
-                            @foreach($activities as $activity){
+                            @foreach($activities as $activity)
                                 @if($user->is_following($activity->user_id) == true)
-                                {
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="row">
@@ -76,7 +75,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                }
                                 @endif
                             @endforeach
                         </div>

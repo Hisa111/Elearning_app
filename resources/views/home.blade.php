@@ -29,9 +29,8 @@
                         <h5 class="card-title">Activity</h5>
                         <hr class="my-4">
                         {{--@foreach ($members as $member)--}}
-                        @foreach($activities as $activity){
+                        @foreach($activities as $activity)
                             @if(auth()->user()->is_following($activity->user_id) == true)
-                            {
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row">
@@ -53,11 +52,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            }
                             @endif
                         @endforeach
-                        {{--@endforeach--}}
-                        <p class="card-text"></p>
                     </div>
                 </div>
             </div>
