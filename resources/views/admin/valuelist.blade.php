@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+@if(auth()->user()->admin_check() == true)
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -42,4 +43,9 @@
         </div>
     </div>
 </div>
+@else
+@php
+return redirect()->route('home');
+@endphp
+@endif
 @endsection

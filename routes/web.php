@@ -18,7 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/home/profile', 'HomeController@profile')->name('layouts.profile');
+Route::get('/home/{id}/profile', 'HomeController@profile')->name('layouts.profile');
+//friend function
+Route::post('/home/{id}/follow', 'FriendController@follow')->name('layouts.follow');
+Route::delete('/home/{id}/unfollow', 'FriendController@unfollow')->name('layouts.unfollow');
+Route::get('/home/{id}/type/{type}/list', 'HomeController@list')->name('layouts.list');
+
 //category
 Route::get('/admin/categories/make', 'AdminController@makecategories')->name('admin.makecategories');
 Route::post('/admin/categories/post', 'CategoryController@post')->name('admin.postcategories');
@@ -34,13 +39,14 @@ Route::get('/admin/categories/{id}/{sec}/{num}/value/edit', 'AdminController@edi
 Route::patch('/admin/categories/{id}/{num}/value/edit/post', 'QuestionController@editpost')->name('admin.editpostquestions');
 Route::delete('/admin/categories/{id}/{sec}/value/delete', 'QuestionController@delete')->name('admin.deletevalue');
 //answer
-Route::post('/admin/answers/post', 'AnswerController@post')->name('admin.postanswers');
-Route::patch('/admin/answers/edit/post', 'AnswerController@editpost');
+// Route::post('/admin/answers/post', 'AnswerController@post')->name('admin.postanswers');
+// Route::patch('/admin/answers/edit/post', 'AnswerController@editpost');
 //non admin
 Route::get('/lesson/categories', 'HomeController@categories')->name('lesson.categories');
 Route::get('/lesson/{id}/answers', 'HomeController@answers')->name('lesson.answers');
 Route::post('/lesson/{id}/answers/{choice_id}/post', 'AnswerController@post')->name('lesson.answerpost');
 Route::patch('/lesson/answers/delete', 'AnswerController@delete')->name('lesson.answerdelete');
+Route::post('/lesson/{id}/answers/submit', 'AnswerController@submit')->name('lesson.answersubmit');
 
 Route::get('/lesson/{id}/result', "HomeController@result")->name('lesson.result');
 

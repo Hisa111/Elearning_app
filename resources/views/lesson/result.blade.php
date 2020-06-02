@@ -45,17 +45,31 @@
                                     {{$x+1}}
                                 </td>
                                 
-                                <td>{{$answers->get($x)->choice->choice_text}}</td>
                                 <td>
-                                    {{--conditional branch--}}
-                                    @if($answers->get($x)->choice->is_correct == 2)
-                                    <span style="color: green;">
-                                        <i class="far fa-check-circle"></i>
-                                    </span>
+                                    @if($answers->get($x)->choice_id !=null)
+                                    {{$answers->get($x)->choice->choice_text}}
                                     @else
                                     <span style="color: red;">
-                                        <i class="far fa-times-circle"></i>
+                                        <p>blank</p>
                                     </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{--conditional branch--}}
+                                    @if ($answers->get($x)->choice_id ==null)
+                                        <span style="color: red;">
+                                            <p>blank</p>
+                                        </span>
+                                    @else
+                                        @if($answers->get($x)->choice->is_correct == 2)
+                                            <span style="color: green;">
+                                                <i class="far fa-check-circle"></i>
+                                            </span>
+                                            @else
+                                            <span style="color: red;">
+                                                <i class="far fa-times-circle"></i>
+                                            </span>
+                                        @endif
                                     @endif
                                 </td>
                                 {{-- <td>{{ $question->choices->where('is_correct', 2)->first()->choice_text }}</td> by_tantan --}}
@@ -67,13 +81,13 @@
                     </table>
                     <div class="col-md-12 text-right">
                         @if($correct_answers/$lesson->category->questions->count() < 0.7)
-                        <form class="" method="POST" action="{{route('lesson.store', ['id' => $lesson->category_id])}}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Re-Test</button>
-                            <a class="btn btn-success" href="{{route('lesson.categories')}}">Choose Next</a>
-                        <a class="btn btn-primary" href="{{route('home')}}">Back Home</a>
-                        </form>
+                            <form class="" method="POST" action="{{route('lesson.store', ['id' => $lesson->category_id])}}">
+                                @csrf
+                                <button type="submit" class="btn btn-danger">Re-Test</button>
+                            </form>
                         @endif
+                        <a class="btn btn-success" href="{{route('lesson.categories')}}">Choose Next</a>
+                        <a class="btn btn-primary" href="{{route('home')}}">Back Home</a>
                         
                     </div>
                 </div>

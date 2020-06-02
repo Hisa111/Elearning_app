@@ -23,8 +23,8 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand" href="{{ route('home',['type'=> 1]) }}">
+                    E-leaning
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -33,7 +33,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a href="{{route('lesson.categories')}}" class="nav-link">Lessons</a>
+                        </li>
+                        
+                        @guest
+                        @else
+                        <li class="nav-item">
+                            <a href="{{route('layouts.list',['id' => auth()->user()->id, 'type' => 3])}}" class="nav-link">Members</a>
+                        </li>
+                        @if(auth()->user()->admin_check() == true)
+                            <li class="nav-item dropdown" >
+                                <a href="#" style="color:red;" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Admin-Function
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a href="{{route('admin.makecategories')}}" class="dropdown-item">Make Categories</a>
+                                    <a href="{{route('admin.categorieslist')}}" class="dropdown-item">Categories List</a>
+                                </div>
+                            </li>
+                        @endif
+                        @endguest
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -55,7 +75,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('admin.categorieslist') }}">Admin List</a>
+                                    <a href="{{route('home')}}" class="dropdown-item">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

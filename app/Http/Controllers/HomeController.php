@@ -6,6 +6,9 @@ use App\Answer;
 use App\Category;
 use App\Question;
 use App\Lesson;
+use App\User;
+use App\Friend;
+use App\Activity;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,11 +30,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $activities =Activity::all();
+        return view('home', compact('activities'));
     }
 
     public function dash()
     {
+        
         return view('dashboard');
     }
 
@@ -41,9 +46,32 @@ class HomeController extends Controller
         return view('lesson.categories', compact('categories'));
     }
 
-    public function profile()
+    public function profile($id)
     {
-        return view('layouts.profile');
+        $activities =Activity::all();
+        $user = User::find($id);
+        return view('layouts.profile', compact('user','activities'));
+    }
+
+    public function list($id, $type)
+    {   
+        $users = User::all();
+        if($type == 1)//follower
+        {
+            $friends = Friend::where('followed_id', $id)->get();
+            return view('layouts.list', compact('friends', 'users', 'id', 'type'));
+            
+        } elseif($type == 2) {//following
+
+            $friends = Friend::where('follower_id', $id)->get();
+
+            return view('layouts.list', compact('friends', 'users', 'id', 'type'));
+
+        } elseif($type == 3) {
+            
+            return view('layouts.list', compact('users', 'id', 'type'));
+
+        }
     }
 
     public function answers($id, Request $request)
@@ -66,8 +94,11 @@ class HomeController extends Controller
         $correct_answers = 0;
 
         foreach ($answers as $answer){
-            if($answer->choice->is_correct == 2){
-                $correct_answers += 1;
+            if($answer->choice_id != null)
+            {
+                if($answer->choice->is_correct == 2){
+                    $correct_answers += 1;
+                }
             }
         }
         return view('lesson.result', compact('lesson', 'answers', 'correct_answers'));

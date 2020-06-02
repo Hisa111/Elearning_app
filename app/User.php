@@ -8,9 +8,32 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
+    public function friend()
+    {
+        return $this->has('App\Friend');
+    }
+    public function following()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'follower_id', 'followed_id');
+    }
+
+    public function followed()
+    {
+        return $this->belongsToMany('App\User', 'friends', 'followed_id', 'follower_id');
+    }
+    public function is_following($followed_id)
+    {
+        if($this->following()->where('followed_id', $followed_id)->count() > 0)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public function admin()
     {
-        return $this->belongsToMany('App\User','users', 'id', 'admin_id');
+        return $this->belongsToMany('App\User');
     }
 
     public function lessons()
@@ -32,15 +55,17 @@ class User extends Authenticatable
         }
     }
 
-    public function is_admin()
+    public function admin_check()
     {
-        if ($this->admin() == 2){
+        if ($this->admin_id >= 2){
             return true;
         } else {
             return false;
         }
     }
     
+    
+
     use Notifiable;
 
     /**
