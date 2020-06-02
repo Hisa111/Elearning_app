@@ -39,23 +39,23 @@
                             </form> --}}
 
                             @if(request()->session()->get('answers')[$questions->currentPage() - 1]->choice_id == $choice->id)
-                            <form method="POST" action="{{route('lesson.answerdelete')}}">
-                                @csrf
-                                @method('PATCH')
-                                <input type="hidden" name="page_num" value="{{$questions->currentPage() - 1}}">
-                                <button class="btn btn-danger btn-block m-3" name="choice{{$y+1}}_text">
-                                    {{$choice->choice_text}}
-                                </button>
-                            </form>
+                                <form method="POST" action="{{route('lesson.answerdelete')}}">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="page_num" value="{{$questions->currentPage() - 1}}">
+                                    <button class="btn btn-danger btn-block m-3" name="choice{{$y+1}}_text">
+                                        {{$choice->choice_text}}
+                                    </button>
+                                </form>
                             @else
-                            <form method="POST" action="{{route('lesson.answerpost', ['id' => $lesson->id, 'choice_id'=>$choice->id])}}">
-                                @csrf
-                                <input type="hidden" name="next_page" value="{{ $questions->nextPageUrl() }}">
-                                <input type="hidden" name="page_num" value="{{$questions->currentPage() - 1}}">
-                                <button class="btn btn-primary btn-block m-3" name="choice{{$y+1}}_text">
-                                    {{$choice->choice_text}}
-                                </button>
-                            </form>
+                                <form method="POST" action="{{route('lesson.answerpost', ['id' => $lesson->id, 'choice_id'=>$choice->id])}}">
+                                    @csrf
+                                    <input type="hidden" name="next_page" value="{{ $questions->nextPageUrl() }}">
+                                    <input type="hidden" name="page_num" value="{{$questions->currentPage() - 1}}">
+                                    <button class="btn btn-primary btn-block m-3" name="choice{{$y+1}}_text">
+                                        {{$choice->choice_text}}
+                                    </button>
+                                </form>
                             @endif
                         @endforeach
                     </div>

@@ -44,10 +44,15 @@ class AnswerController extends Controller
     {
         //insert data into database
         $answers = $request->session()->get('answers');
-
-        foreach($answers as $answer)
+        foreach((array)$answers as $answer)
         {
-            $answer->save();
+            if($answer->choice_id != 0) {
+                $answer->save();
+            } else {
+                $answer->choice_id = null;
+                $answer->save();
+            }
+
         }
         $request->session()->forget('answers');
 
@@ -57,8 +62,11 @@ class AnswerController extends Controller
         $correct_answers = 0;
 
         foreach ($answers as $answer){
-            if($answer->choice->is_correct == 2){
-                $correct_answers += 1;
+            if($answer->choice_id != null)
+            {
+                if($answer->choice->is_correct == 2){
+                    $correct_answers += 1;
+                }
             }
         }
         if($correct_answers/$lesson->category->questions->count() >= 0.7)

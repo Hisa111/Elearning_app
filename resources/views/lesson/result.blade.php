@@ -45,17 +45,31 @@
                                     {{$x+1}}
                                 </td>
                                 
-                                <td>{{$answers->get($x)->choice->choice_text}}</td>
                                 <td>
-                                    {{--conditional branch--}}
-                                    @if($answers->get($x)->choice->is_correct == 2)
-                                    <span style="color: green;">
-                                        <i class="far fa-check-circle"></i>
-                                    </span>
+                                    @if($answers->get($x)->choice_id !=null)
+                                    {{$answers->get($x)->choice->choice_text}}
                                     @else
                                     <span style="color: red;">
-                                        <i class="far fa-times-circle"></i>
+                                        <p>blank</p>
                                     </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    {{--conditional branch--}}
+                                    @if ($answers->get($x)->choice_id ==null)
+                                        <span style="color: red;">
+                                            <p>blank</p>
+                                        </span>
+                                    @else
+                                        @if($answers->get($x)->choice->is_correct == 2)
+                                            <span style="color: green;">
+                                                <i class="far fa-check-circle"></i>
+                                            </span>
+                                            @else
+                                            <span style="color: red;">
+                                                <i class="far fa-times-circle"></i>
+                                            </span>
+                                        @endif
                                     @endif
                                 </td>
                                 {{-- <td>{{ $question->choices->where('is_correct', 2)->first()->choice_text }}</td> by_tantan --}}

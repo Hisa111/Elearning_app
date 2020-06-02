@@ -7,7 +7,6 @@
                 <img src="https://media.istockphoto.com/vectors/user-vector-icon-vector-id955397756?k=6&m=955397756&s=612x612&w=0&h=xYXhu8pmqqnk32v9TQYSjKX2pFMht-zebnpl4d0KxrY=" alt="user-image" alt="profile-img" class="card-img-top mx-auto" style="width:50%;">
                 <div class="card-body">
                     <h5 class="card-title">{{$user->name}}</h5>
-                    <a href="" class="btn btn-primary">Edit Pofile</a>
 
                     <hr class="my-4">
                     @if(auth()->user()->id != $user->id)

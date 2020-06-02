@@ -94,8 +94,11 @@ class HomeController extends Controller
         $correct_answers = 0;
 
         foreach ($answers as $answer){
-            if($answer->choice->is_correct == 2){
-                $correct_answers += 1;
+            if($answer->choice_id != null)
+            {
+                if($answer->choice->is_correct == 2){
+                    $correct_answers += 1;
+                }
             }
         }
         return view('lesson.result', compact('lesson', 'answers', 'correct_answers'));
